@@ -20,7 +20,8 @@ struct RecipeDetailView: View {
                 // MARK: Recipe image
                 Image(recipe.image)
                     .resizable()
-                    .scaledToFill()
+                    .scaledToFit()
+                    .clipped(antialiased: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
                 
                 // MARK: Ingredients
                 VStack(alignment: .leading) {
@@ -30,9 +31,9 @@ struct RecipeDetailView: View {
                         .padding([.top, .bottom], 5)
                     
                     // Get the ingredients
-                    ForEach (recipe.ingredients, id: \.self) { direction in
+                    ForEach (recipe.ingredients) { direction in
                                                 
-                        Text("• \(direction)")
+                        Text("• \(direction.name)")
                         
                     }
                     

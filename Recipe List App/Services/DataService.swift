@@ -40,7 +40,15 @@ class DataService {
                 // Loop through each of the recipes and set the ID to a UUID
                 for r in recipeData {
                     
+                    // Set an ID for the Recipe objects
                     r.id = UUID()
+                    
+                    for i in r.ingredients {
+                        
+                        //Set an ID for the Ingredients objects
+                        i.id = UUID()
+                        
+                    }
                     
                 }
                 
