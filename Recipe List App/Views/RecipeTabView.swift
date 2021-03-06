@@ -15,7 +15,7 @@ struct RecipeTabView: View {
 
         TabView (selection: $tabIndex) {
             
-            Text("Favourites view")
+            RecipeFavouritesView()
                 .tabItem {
                     VStack {
                         Image(systemName: "star.fill")
@@ -34,8 +34,10 @@ struct RecipeTabView: View {
                 .tag(2)
             
         }
+        .environmentObject(RecipeModel())
         
     }
+
 }
 
 struct RecipeTabView_Previews: PreviewProvider {
