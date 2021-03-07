@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RecipeTabView: View {
     
-    @State var tabIndex: Int = 2
+    @State var tabIndex: Int = 1
     
     var body: some View {
 
