@@ -17,7 +17,7 @@ struct RecipeFavouritesView: View {
         VStack (alignment: .leading, spacing: 0) {
         
             Text("Featured recipes")
-                .font(.title)
+                .font(.largeTitle)
                 .bold()
                 .padding(.leading)
             

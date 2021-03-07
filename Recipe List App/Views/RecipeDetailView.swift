@@ -12,6 +12,7 @@ struct RecipeDetailView: View {
     var recipe: Recipe
     
     var body: some View {
+        
         ScrollView {
             
             VStack(alignment: .leading) {
@@ -27,7 +28,6 @@ struct RecipeDetailView: View {
                 
                     Text("Ingredients")
                         .font(.headline)
-                        .padding([.top, .bottom], 5)
                     
                     // Get the ingredients
                     ForEach (recipe.ingredients) { direction in
