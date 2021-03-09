@@ -11,6 +11,8 @@ struct RecipeDetailView: View {
     
     var recipe: Recipe
     
+    @State var servingSize = 2
+    
     var body: some View {
         
         ScrollView {
@@ -23,6 +25,31 @@ struct RecipeDetailView: View {
                     .scaledToFit()
                     .clipped(antialiased: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
                 
+                // MARK: Recipe title
+                Text(recipe.name)
+                    .font(.largeTitle)
+                    .bold()
+                    .padding(.top, 20)
+                    .padding(.leading)
+                
+                // MARK: Serving size picker
+                VStack(alignment: .leading) {
+                    
+                    Text("Select serving size")
+                    Picker("", selection: $servingSize) {
+                        
+                        Text("2").tag(2)
+                        Text("4").tag(4)
+                        Text("6").tag(6)
+                        Text("8").tag(8)
+                        
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .frame(width: 160)
+                
+                }
+                .padding()
+                
                 // MARK: Ingredients
                 VStack(alignment: .leading) {
                 
@@ -31,8 +58,9 @@ struct RecipeDetailView: View {
                     
                     // Get the ingredients
                     ForEach (recipe.ingredients) { direction in
-                                                
-                        Text("• \(direction.name)")
+                        
+                        // Call the RecipeModel serving static method in order to calculate the serving sizes
+                        Text("• \(RecipeModel.getServingSize(ingredient: direction, recipeServings: recipe.servings, targetServings: servingSize)) \(direction.name.lowercased())")
                         
                     }
                     
@@ -60,7 +88,7 @@ struct RecipeDetailView: View {
                                     
             }
             
-        }.navigationBarTitle(recipe.name)
+        }
         
     }
     
