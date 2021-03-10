@@ -27,7 +27,7 @@ struct RecipeDetailView: View {
                 
                 // MARK: Recipe title
                 Text(recipe.name)
-                    .font(.largeTitle)
+                    .font(Font.custom("Avenir Heavy", size: 24))
                     .bold()
                     .padding(.top, 20)
                     .padding(.leading)
@@ -44,6 +44,7 @@ struct RecipeDetailView: View {
                         Text("8").tag(8)
                         
                     }
+                    .font(Font.custom("Avenir", size: 15))
                     .pickerStyle(SegmentedPickerStyle())
                     .frame(width: 160)
                 
@@ -55,12 +56,14 @@ struct RecipeDetailView: View {
                 
                     Text("Ingredients")
                         .font(.headline)
+                        .font(Font.custom("Avenir Heavy", size: 16))
                     
                     // Get the ingredients
                     ForEach (recipe.ingredients) { direction in
                         
                         // Call the RecipeModel serving static method in order to calculate the serving sizes
                         Text("• \(RecipeModel.getServingSize(ingredient: direction, recipeServings: recipe.servings, targetServings: servingSize)) \(direction.name.lowercased())")
+                            .font(Font.custom("Avenir", size: 15))
                         
                     }
                     
@@ -75,11 +78,13 @@ struct RecipeDetailView: View {
                         Text("Directions")
                             .font(.headline)
                             .padding([.top, .bottom], 5)
+                            .font(Font.custom("Avenir Heavy", size: 16))
                         
                         ForEach (0..<recipe.directions.count, id: \.self) {
                             index in
                             Text("\(String(index+1)). \(recipe.directions[index])")
                                 .padding([.top, .bottom], 1)
+                                .font(Font.custom("Avenir", size: 15))
                             
                         }
                         

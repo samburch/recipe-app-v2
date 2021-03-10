@@ -13,19 +13,31 @@ struct RecipeFavouritesView: View {
     @EnvironmentObject var model: RecipeModel
     
     @State var isDetailViewShowing = false
+    @State var tabIndex = 0
+    
+    // MARK: Find the first index of the featured recipes
+    func findFirstFeaturedIndex() {
+        
+        // Find the first index
+        let index = model.recipes.firstIndex { (recipe) -> Bool in
+            return recipe.featured
+        }
+        tabIndex = index ?? 0
+        
+    }
     
     var body: some View {
         
         VStack (alignment: .leading, spacing: 0) {
         
             Text("Featured recipes")
-                .font(.largeTitle)
+                .font(Font.custom("Avenir Heavy", size: 24))
                 .bold()
                 .padding(.leading)
             
             GeometryReader { geo in
                 
-                TabView {
+                TabView (selection: $tabIndex) {
                     
                     // Loop through each of the Recipes in the data object
                     ForEach(0..<model.recipes.count) { index in
@@ -54,12 +66,14 @@ struct RecipeFavouritesView: View {
                                         
                                         Text(model.recipes[index].name)
                                             .padding()
+                                            .font(Font.custom("Avenir", size: 15))
                                         
                                     }
                                     
                                 }
                                 
                             })
+                            .tag(index)
                             .sheet(isPresented: $isDetailViewShowing){
                                 // Show the Recipe Detail View
                                 RecipeDetailView(recipe: model.recipes[index])
@@ -81,18 +95,20 @@ struct RecipeFavouritesView: View {
             
             VStack(alignment: .leading, spacing: 5) {
                 
-                Text("Preperation time")
-                    .font(.headline)
-                Text("1 hour")
+                Text("Preperation time:")
+                    .font(Font.custom("Avenir Heavy", size: 16))
+                Text(model.recipes[tabIndex].prepTime)
+                    .font(Font.custom("Avenir", size: 15))
                 Text("Highlights")
-                    .font(.headline)
-                Text("Healthy, light, vegetarian")
-                
+                    .font(Font.custom("Avenir Heavy", size: 16))
+                RecipeHighlights(highlights: model.recipes[tabIndex].highlights)
                 
             }.padding([.leading, .bottom])
             
             
-        }
+        }.onAppear(perform: {
+            findFirstFeaturedIndex()
+        })
         
     }
 }
